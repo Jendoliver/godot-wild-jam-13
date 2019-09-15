@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+
+[node name="Handles" type="Node2D" parent="."]
+
+[node name="Top" type="Position2D" parent="Handles"]
+position = Vector2( 0, -32 )
+
+[node name="Right" type="Position2D" parent="Handles"]
+position = Vector2( 32, 0 )
+
+[node name="Down" type="Position2D" parent="Handles"]
+position = Vector2( 0, 32 )
+
+[node name="Left" type="Position2D" parent="Handles"]
+position = Vector2( -32, 0 )
