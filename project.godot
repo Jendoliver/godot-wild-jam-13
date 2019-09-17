@@ -17,7 +17,12 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Item.gd"
+"path": "res://item/Item.gd"
+}, {
+"base": "Node2D",
+"class": "Level",
+"language": "GDScript",
+"path": "res://level/Level.gd"
 }, {
 "base": "Control",
 "class": "LevelUI",
@@ -32,6 +37,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ExistenceTester": "",
 "Item": "",
+"Level": "",
 "LevelUI": "",
 "Merger": ""
 }
@@ -43,8 +49,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Level="*res://autoload/Level.gd"
+Levels="*res://autoload/Levels.gd"
 DragDrop="*res://autoload/DragDrop.gd"
+Version="*res://autoload/Version.gd"
 
 [display]
 

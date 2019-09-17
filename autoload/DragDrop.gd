@@ -5,6 +5,10 @@ signal drop(dragged)
 var _dragged: Item
 
 
+func _ready():
+	set_process(false)
+
+
 func _process(delta):
 	_dragged.global_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("interact"):

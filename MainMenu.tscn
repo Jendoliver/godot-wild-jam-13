@@ -1,0 +1,166 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://MainMenu.gd" type="Script" id=1]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 400.0 ],
+"_edit_vertical_guides_": [ 512.0 ]
+}
+
+[node name="MainScreen" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GameTitle" type="Label" parent="MainScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = -272.0
+margin_right = -101.0
+margin_bottom = -258.0
+rect_scale = Vector2( 4.83703, 4.46653 )
+text = "GAME TITLE"
+
+[node name="Version" type="Label" parent="MainScreen"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -112.0
+margin_top = -48.0
+margin_right = -56.0
+margin_bottom = -34.0
+rect_scale = Vector2( 1.30148, 1.4037 )
+text = "VERSION"
+
+[node name="Start" type="Button" parent="MainScreen"]
+modulate = Color( 0.203922, 1, 0.156863, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -272.0
+margin_top = -160.0
+margin_right = -169.0
+margin_bottom = -140.0
+rect_scale = Vector2( 5.3655, 4.34549 )
+text = "START"
+
+[node name="HowToPlay" type="Button" parent="MainScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -272.0
+margin_top = -48.0
+margin_right = -169.0
+margin_bottom = -28.0
+rect_scale = Vector2( 5.3655, 4.34549 )
+text = "HOW TO PLAY"
+
+[node name="Credits" type="Button" parent="MainScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -272.0
+margin_top = 64.0
+margin_right = -169.0
+margin_bottom = 84.0
+rect_scale = Vector2( 5.3655, 4.34549 )
+text = "CREDITS"
+
+[node name="Exit" type="Button" parent="MainScreen"]
+modulate = Color( 1, 0.247059, 0.247059, 1 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -272.0
+margin_top = -128.0
+margin_right = -169.0
+margin_bottom = -108.0
+rect_scale = Vector2( 5.3655, 4.34549 )
+text = "EXIT"
+
+[node name="Credits" type="Panel" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 800.0
+
+[node name="Title" type="Label" parent="Credits"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -112.0
+margin_top = 32.0
+margin_right = -60.0
+margin_bottom = 46.0
+rect_scale = Vector2( 3.98114, 4.25972 )
+text = "CREDITS"
+
+[node name="Text" type="RichTextLabel" parent="Credits"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -432.0
+margin_top = -224.0
+margin_right = 89.0
+margin_bottom = -55.0
+rect_scale = Vector2( 1.72097, 2.56056 )
+text = "Lorem fistrum condemor hasta luego Lucas caballo blanco caballo negroorl por la gloria de mi madre caballo blanco caballo negroorl qué dise usteer. Va usté muy cargadoo papaar papaar llevame al sircoo al ataquerl se calle ustée diodeno ese pedazo de está la cosa muy malar ese que llega apetecan. A wan jarl te va a hasé pupitaa a gramenawer a peich no te digo trigo por no llamarte Rodrigor a wan por la gloria de mi madre la caidita la caidita hasta luego Lucas. Ese que llega quietooor ese hombree pecador quietooor qué dise usteer de la pradera. Tiene musho peligro qué dise usteer diodeno caballo blanco caballo negroorl torpedo va usté muy cargadoo. Te voy a borrar el cerito quietooor se calle ustée diodeno la caidita condemor tiene musho peligro apetecan."
+
+[node name="Back" type="Button" parent="Credits"]
+margin_left = 432.0
+margin_top = 688.0
+margin_right = 478.0
+margin_bottom = 708.0
+rect_scale = Vector2( 3.83548, 3.52896 )
+text = "BACK"
+
+[node name="HowToPlay" type="Panel" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 800.0
+
+[node name="Title" type="Label" parent="HowToPlay"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -160.0
+margin_top = 32.0
+margin_right = -69.0
+margin_bottom = 46.0
+rect_scale = Vector2( 3.98114, 4.25972 )
+text = "HOW TO PLAY"
+
+[node name="Text" type="RichTextLabel" parent="HowToPlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -432.0
+margin_top = -224.0
+margin_right = 89.0
+margin_bottom = -55.0
+rect_scale = Vector2( 1.72097, 2.56056 )
+text = "Lorem fistrum condemor hasta luego Lucas caballo blanco caballo negroorl por la gloria de mi madre caballo blanco caballo negroorl qué dise usteer. Va usté muy cargadoo papaar papaar llevame al sircoo al ataquerl se calle ustée diodeno ese pedazo de está la cosa muy malar ese que llega apetecan. A wan jarl te va a hasé pupitaa a gramenawer a peich no te digo trigo por no llamarte Rodrigor a wan por la gloria de mi madre la caidita la caidita hasta luego Lucas. Ese que llega quietooor ese hombree pecador quietooor qué dise usteer de la pradera. Tiene musho peligro qué dise usteer diodeno caballo blanco caballo negroorl torpedo va usté muy cargadoo. Te voy a borrar el cerito quietooor se calle ustée diodeno la caidita condemor tiene musho peligro apetecan."
+
+[node name="Back" type="Button" parent="HowToPlay"]
+margin_left = 432.0
+margin_top = 688.0
+margin_right = 478.0
+margin_bottom = 708.0
+rect_scale = Vector2( 3.83548, 3.52896 )
+text = "BACK"
+[connection signal="pressed" from="MainScreen/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MainScreen/HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="MainScreen/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="pressed" from="MainScreen/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Credits/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="HowToPlay/Back" to="." method="_on_Back_pressed"]

@@ -12,7 +12,6 @@ var _items = []
 func _ready():
 	hide()
 	set_process_input(false)
-	DragDrop.connect("drop", self, "_on_item_drop")
 	_active = false
 
 
@@ -40,11 +39,6 @@ func close():
 func close_get_items() -> Array:
 	close()
 	return _items
-
-
-func _on_item_drop(item: Item):
-	# Check if item is in area
-	pass
 
 
 func _on_Close_pressed():
