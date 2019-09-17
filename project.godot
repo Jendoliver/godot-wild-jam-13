@@ -8,15 +8,55 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "ExistenceTester",
+"language": "GDScript",
+"path": "res://private/jendoliver/ExistenceTester.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Item.gd"
+}, {
+"base": "Control",
+"class": "LevelUI",
+"language": "GDScript",
+"path": "res://ui/LevelUI.gd"
+}, {
+"base": "Panel",
+"class": "Merger",
+"language": "GDScript",
+"path": "res://ui/Merger.gd"
+} ]
 _global_script_class_icons={
-
+"ExistenceTester": "",
+"Item": "",
+"LevelUI": "",
+"Merger": ""
 }
 
 [application]
 
 config/name="godot-wild-jam-13"
 config/icon="res://icon.png"
+
+[autoload]
+
+Level="*res://autoload/Level.gd"
+DragDrop="*res://autoload/DragDrop.gd"
+
+[display]
+
+window/size/height=800
+
+[input]
+
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 
 [rendering]
 
