@@ -20,8 +20,17 @@ func _ready():
 
 func add_item(item: Item):
 	item.sprite.hide()
+	var index = _inventory.size()
 	_inventory.append(item)
+	item.inventory_index = index
 	inventory.add_item('', item.sprite.texture, true)
+
+func remove_item(item: Item):
+	_inventory.erase(item)
+	inventory.remove_item(item.inventory_index)
+	if not merger._active: # Keeping index to put the item on the same position when merger closes
+		item.inventory_index = -1
+	item.sprite.show()	
 
 
 func add_items(items: Array):
@@ -31,7 +40,16 @@ func add_items(items: Array):
 
 func _on_item_drop(item: Item):
 	# Check where DragDrop is, send item to Inventory/Merger/Level
-	pass
+	if _dragdrop_in_inventory_area :
+		# Inventory
+		add_item(item)
+	elif _dragdrop_in_main_area :
+		# Merger / Level
+		if merger._active :
+			remove_item(item)
+			merger.add_item(item)
+		else : emit_signal("item_dropped",item)
+	else : print("where u dropin at m8?")
 
 
 func _on_Inventory_item_click(idx):
@@ -45,17 +63,22 @@ func _on_Inventory_item_double_click(idx):
 		merger.activate(inventory.get_item_at_position(idx))
 
 
-func _on_InventoryDropArea_area_entered(area):
-	_dragdrop_in_inventory_area = true
+func _on_InventoryDropArea_area_entered(area: Area2D):
+	var item = area.get_owner() # ??
+	if item is Item :
+		_dragdrop_in_inventory_area = true
 
 
-func _on_InventoryDropArea_area_exited(area):
+func _on_InventoryDropArea_area_exited(area: Area2D):
+	# TODO Check Area
 	_dragdrop_in_inventory_area = false
 
 
-func _on_MainDropArea_area_entered(area):
+func _on_MainDropArea_area_entered(area: Area2D):
+	# TODO Check Area
 	_dragdrop_in_main_area = true
 
 
-func _on_MainDropArea_area_exited(area):
+func _on_MainDropArea_area_exited(area: Area2D):
+	# TODO Check Area
 	_dragdrop_in_main_area = false

@@ -21,6 +21,8 @@ func _input(event):
 	
 	# Handle shit (drags, drops, clicks, etc)
 
+func add_item(item: Item):
+	_items.append(item)
 
 func open(item: Item):
 	show()
