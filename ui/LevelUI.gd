@@ -29,7 +29,7 @@ func remove_item(item: Item):
 	_inventory.erase(item)
 	inventory.remove_item(item.inventory_index)
 	if not merger._active: # Keeping index to put the item on the same position when merger closes
-		item.inventory_index = -1
+		item.inventory_index = Item.OUT_OF_INVENTORY
 	item.sprite.show()	
 
 
@@ -63,21 +63,17 @@ func _on_Inventory_item_double_click(idx):
 		merger.activate(inventory.get_item_at_position(idx))
 
 
-func _on_InventoryDropArea_area_entered(area: Area2D):
-	if area is DragDropArea:
-		_dragdrop_in_inventory_area = true
+func _on_InventoryDropArea_area_entered(area: DragDropArea):
+	_dragdrop_in_inventory_area = true
 
 
-func _on_InventoryDropArea_area_exited(area: Area2D):
-	if area is DragDropArea:
-		_dragdrop_in_inventory_area = false
+func _on_InventoryDropArea_area_exited(area: DragDropArea):
+	_dragdrop_in_inventory_area = false
 
 
-func _on_MainDropArea_area_entered(area: Area2D):
-	if area is DragDropArea:
-		_dragdrop_in_main_area = true
+func _on_MainDropArea_area_entered(area: DragDropArea):
+	_dragdrop_in_main_area = true
 
 
-func _on_MainDropArea_area_exited(area: Area2D):
-	if area is DragDropArea:
-		_dragdrop_in_main_area = false
+func _on_MainDropArea_area_exited(area: DragDropArea):
+	_dragdrop_in_main_area = false
