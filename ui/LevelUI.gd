@@ -64,21 +64,20 @@ func _on_Inventory_item_double_click(idx):
 
 
 func _on_InventoryDropArea_area_entered(area: Area2D):
-	var item = area.get_owner() # ??
-	if item is Item :
+	if area is DragDropArea:
 		_dragdrop_in_inventory_area = true
 
 
 func _on_InventoryDropArea_area_exited(area: Area2D):
-	# TODO Check Area
-	_dragdrop_in_inventory_area = false
+	if area is DragDropArea:
+		_dragdrop_in_inventory_area = false
 
 
 func _on_MainDropArea_area_entered(area: Area2D):
-	# TODO Check Area
-	_dragdrop_in_main_area = true
+	if area is DragDropArea:
+		_dragdrop_in_main_area = true
 
 
 func _on_MainDropArea_area_exited(area: Area2D):
-	# TODO Check Area
-	_dragdrop_in_main_area = false
+	if area is DragDropArea:
+		_dragdrop_in_main_area = false
