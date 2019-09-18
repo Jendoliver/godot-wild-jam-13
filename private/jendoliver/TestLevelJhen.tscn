@@ -11,3 +11,5 @@ script = ExtResource( 2 )
 visible = true
 
 [node name="TestItemJhen" parent="StartingItems" index="0" instance=ExtResource( 3 )]
+position = Vector2( 352, 51.2 )
+sleeping = true

@@ -31,6 +31,7 @@ max_columns = 3
 same_column_width = true
 
 [node name="DropArea" type="Area2D" parent="Menu/Inventory"]
+editor/display_folded = true
 position = Vector2( 0, 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="Menu/Inventory/DropArea"]
