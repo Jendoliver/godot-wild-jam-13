@@ -1,5 +1,5 @@
 class_name LevelUI
-extends Control
+extends CanvasLayer
 
 signal item_dropped(item)
 

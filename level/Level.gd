@@ -1,14 +1,11 @@
 class_name Level
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var balls: Node2D = $Balls
+onready var exits: Node2D = $Exits
+onready var starting_items: Node2D = $StartingItems
+onready var level_ui: LevelUI = $LevelUI
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	level_ui.add_items(starting_items.get_children())

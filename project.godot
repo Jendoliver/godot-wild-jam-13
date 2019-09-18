@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://level/Level.gd"
 }, {
-"base": "Control",
+"base": "CanvasLayer",
 "class": "LevelUI",
 "language": "GDScript",
 "path": "res://ui/LevelUI.gd"

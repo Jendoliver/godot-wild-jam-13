@@ -10,9 +10,7 @@ extents = Vector2( 288, 352 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 352, 400 )
 
-[node name="LevelUI" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="LevelUI" type="CanvasLayer"]
 script = ExtResource( 1 )
 
 [node name="Menu" type="Panel" parent="."]
@@ -33,6 +31,7 @@ max_columns = 3
 same_column_width = true
 
 [node name="DropArea" type="Area2D" parent="Menu/Inventory"]
+editor/display_folded = true
 position = Vector2( 0, 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="Menu/Inventory/DropArea"]
@@ -42,7 +41,7 @@ shape = SubResource( 1 )
 [node name="Merger" parent="." instance=ExtResource( 2 )]
 
 [node name="Items" type="Control" parent="."]
-editor/display_folded = true
+pause_mode = 2
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
