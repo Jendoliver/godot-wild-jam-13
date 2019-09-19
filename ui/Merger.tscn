@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/Merger.gd" type="Script" id=1]
+[ext_resource path="res://item/DropArea.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 350, 400 )
 
 [node name="Merger" type="Panel"]
 modulate = Color( 1, 1, 1, 0.686275 )
@@ -19,4 +23,12 @@ margin_left = -80.0
 margin_top = 16.0
 margin_right = -16.0
 margin_bottom = 80.0
+
+[node name="DropArea" type="Area2D" parent="."]
+script = ExtResource( 2 )
+kind = 1
+
+[node name="Collision" type="CollisionShape2D" parent="DropArea"]
+position = Vector2( 350, 400 )
+shape = SubResource( 1 )
 [connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]

@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
-"class": "DragDropArea",
+"class": "DropArea",
 "language": "GDScript",
-"path": "res://item/DragDropArea.gd"
+"path": "res://item/DropArea.gd"
 }, {
 "base": "Node2D",
 "class": "ExistenceTester",
@@ -40,7 +40,7 @@ _global_script_classes=[ {
 "path": "res://ui/Merger.gd"
 } ]
 _global_script_class_icons={
-"DragDropArea": "",
+"DropArea": "",
 "ExistenceTester": "",
 "Item": "",
 "Level": "",
@@ -56,8 +56,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Levels="*res://autoload/Levels.gd"
-DragDrop="*res://autoload/DragDrop.gd"
 Version="*res://autoload/Version.gd"
+DragDrop="*res://autoload/DragDrop.gd"
 
 [display]
 

@@ -1,79 +1,59 @@
 class_name LevelUI
 extends CanvasLayer
 
-signal item_dropped(item)
+signal level_pause_changed(is_paused)
 
 onready var inventory: ItemList = $Menu/Inventory
 onready var merger = $Merger
-onready var _items = $Items  # REMOVE
+onready var level_drop_area = $LevelDropArea
 
 var _inventory = []
-var _dragdrop_in_main_area = false
-var _dragdrop_in_inventory_area = false
 
 
-# REMOVE
 func _ready():
-	add_items(_items.get_children())
-	DragDrop.connect("drop", self, "_on_item_drop")
+	DragDrop.connect("item_dropped", self, "_on_item_dropped")
 
 
-func add_item(item: Item):
-	item.sprite.hide()
-	var index = _inventory.size()
+func add_item_to_inventory(item: Item):
 	_inventory.append(item)
-	item.inventory_index = index
 	inventory.add_item('', item.sprite.texture, true)
+	item.set_placement_inventory()
 
-func remove_item(item: Item):
+
+func remove_item_from_inventory(item: Item):
 	_inventory.erase(item)
 	inventory.remove_item(item.inventory_index)
-	if not merger._active: # Keeping index to put the item on the same position when merger closes
-		item.inventory_index = Item.OUT_OF_INVENTORY
-	item.sprite.show()	
 
 
-func add_items(items: Array):
+func add_items_to_inventory(items: Array):
 	for item in items:
-		add_item(item)
+		add_item_to_inventory(item)
 
 
-func _on_item_drop(item: Item):
-	# Check where DragDrop is, send item to Inventory/Merger/Level
-	if _dragdrop_in_inventory_area :
-		# Inventory
-		add_item(item)
-	elif _dragdrop_in_main_area :
-		# Merger / Level
-		if merger._active :
-			remove_item(item)
-			merger.add_item(item)
-		else : emit_signal("item_dropped",item)
-	else : print("where u dropin at m8?")
+func open_merger(with_item):
+	level_drop_area.monitorable = false
+	emit_signal("level_pause_changed", true)
+	merger.open(with_item)
+
+
+func _on_Merger_closed(items):
+	level_drop_area.monitorable = true
+	emit_signal("level_pause_changed", false)
+	add_items_to_inventory(items)
+
+
+func _on_item_dropped(item: Item, where, mouse_pos, mergeable_items):
+	if where == DropArea.Kind.INVENTORY:
+		add_item_to_inventory(item)
 
 
 func _on_Inventory_item_click(idx):
 	print(idx)
+	# DETECT DRAG AND SEND TO DRAGDROP SOMEHOW
 	pass
 
 
 func _on_Inventory_item_double_click(idx):
 	print(idx)
-	if not merger._active:
-		merger.activate(inventory.get_item_at_position(idx))
-
-
-func _on_InventoryDropArea_area_entered(area: DragDropArea):
-	_dragdrop_in_inventory_area = true
-
-
-func _on_InventoryDropArea_area_exited(area: DragDropArea):
-	_dragdrop_in_inventory_area = false
-
-
-func _on_MainDropArea_area_entered(area: DragDropArea):
-	_dragdrop_in_main_area = true
-
-
-func _on_MainDropArea_area_exited(area: DragDropArea):
-	_dragdrop_in_main_area = false
+	var item = _inventory[idx]
+	open_merger(item)
