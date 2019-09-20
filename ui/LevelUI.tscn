@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/LevelUI.gd" type="Script" id=1]
-[ext_resource path="res://item/DropArea.gd" type="Script" id=2]
-[ext_resource path="res://ui/Merger.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/Merger.tscn" type="PackedScene" id=2]
+[ext_resource path="res://item/DropArea.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 288, 352 )
+extents = Vector2( 128, 352 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 352, 400 )
@@ -29,19 +29,20 @@ max_columns = 2
 same_column_width = true
 fixed_icon_size = Vector2( 128, 128 )
 
-[node name="DropArea" type="Area2D" parent="Menu/Inventory"]
-position = Vector2( 0, 4 )
-script = ExtResource( 2 )
+[node name="Merger" parent="." instance=ExtResource( 2 )]
+
+[node name="InventoryDropArea" type="Area2D" parent="."]
+position = Vector2( 719, 84 )
+script = ExtResource( 3 )
 kind = 2
 
-[node name="Collision" type="CollisionShape2D" parent="Menu/Inventory/DropArea"]
-position = Vector2( 16, 348 )
+[node name="Collision" type="CollisionShape2D" parent="InventoryDropArea"]
+position = Vector2( 161, 348 )
 shape = SubResource( 1 )
 
-[node name="Merger" parent="." instance=ExtResource( 3 )]
-
 [node name="LevelDropArea" type="Area2D" parent="."]
-script = ExtResource( 2 )
+editor/display_folded = true
+script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="LevelDropArea"]
 position = Vector2( 352, 400 )

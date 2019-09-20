@@ -31,4 +31,7 @@ kind = 1
 [node name="Collision" type="CollisionShape2D" parent="DropArea"]
 position = Vector2( 350, 400 )
 shape = SubResource( 1 )
+
+[node name="FirstPos" type="Position2D" parent="."]
+position = Vector2( 350, 400 )
 [connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]

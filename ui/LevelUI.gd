@@ -1,7 +1,7 @@
 class_name LevelUI
 extends CanvasLayer
 
-signal level_pause_changed(is_paused)
+signal merger_state_changed(is_active)
 
 onready var inventory: ItemList = $Menu/Inventory
 onready var merger = $Merger
@@ -32,13 +32,13 @@ func add_items_to_inventory(items: Array):
 
 func open_merger(with_item):
 	level_drop_area.monitorable = false
-	emit_signal("level_pause_changed", true)
+	emit_signal("merger_state_changed", true)
 	merger.open(with_item)
 
 
 func _on_Merger_closed(items):
 	level_drop_area.monitorable = true
-	emit_signal("level_pause_changed", false)
+	emit_signal("merger_state_changed", false)
 	add_items_to_inventory(items)
 
 

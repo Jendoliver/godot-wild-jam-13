@@ -5,17 +5,18 @@ signal closed(items)
 
 export (bool) var close_on_click = false
 
-onready var drop_area = $DropArea
+onready var drop_area: DropArea = $DropArea
+onready var first_pos: Position2D = $FirstPos
 
-var _active = false
+var active setget , is_active
 var _items = []
 
 
 func _ready():
 	hide()
 	set_process_input(false)
-	_active = false
-	DragDrop.connect
+	drop_area.monitorable = false
+	DragDrop.connect("item_dropped", self, "_on_item_dropped")
 
 
 func _input(event):
@@ -24,8 +25,12 @@ func _input(event):
 	
 	# Handle shit (drags, drops, clicks, etc)
 
+func is_active():
+	return drop_area.monitorable
+
+
 func add_item(item: Item):
-	if not _active:
+	if not is_active():
 		return open(item)
 	
 	_items.append(item)
@@ -37,15 +42,20 @@ func open(item: Item):
 	# Put item on center position, ready to MERG3
 	
 	item.set_placement_merger()
-	_active = true  # Keep last
+	drop_area.monitorable = true
 
 
 func close() -> Array:
 	hide()
 	set_process_input(false)
-	_active = false
+	drop_area.monitorable = false
 	return _items
 
 
 func _on_Close_pressed():
 	emit_signal("closed", close())
+
+
+func _on_item_dropped(item, where, mouse_pos, mergeable_items):
+	if where == DropArea.Kind.MERGER:
+		print("merger received item ", item, where, mouse_pos, mergeable_items)

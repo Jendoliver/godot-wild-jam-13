@@ -57,7 +57,7 @@ config/icon="res://icon.png"
 
 Levels="*res://autoload/Levels.gd"
 Version="*res://autoload/Version.gd"
-DragDrop="*res://autoload/DragDrop.gd"
+DragDrop="*res://autoload/DragDrop.tscn"
 
 [display]
 
@@ -65,9 +65,14 @@ window/size/height=800
 
 [input]
 
-interact={
+primary={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+secondary={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 
