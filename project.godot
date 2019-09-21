@@ -58,6 +58,7 @@ config/icon="res://icon.png"
 Levels="*res://autoload/Levels.gd"
 Version="*res://autoload/Version.gd"
 DragDrop="*res://autoload/DragDrop.tscn"
+Colors="*res://autoload/Colors.gd"
 
 [display]
 

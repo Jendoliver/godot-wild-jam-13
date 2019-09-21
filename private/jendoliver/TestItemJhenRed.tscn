@@ -6,9 +6,10 @@
 [node name="TestItemJhen" index="0" instance=ExtResource( 1 )]
 input_pickable = true
 script = ExtResource( 2 )
+color = "red"
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1, 0.121569, 0.121569, 1 )
+modulate = Color( 1, 0, 0, 1 )
 
 [node name="Collision" parent="." index="1"]
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
