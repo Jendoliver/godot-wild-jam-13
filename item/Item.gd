@@ -21,7 +21,8 @@ func is_placed_at(placement):
 
 
 func set_placement_inventory():
-	hide()
+	#hide()
+	show()
 	sleeping = true
 	gravity_scale = 0
 	collision.disabled = true

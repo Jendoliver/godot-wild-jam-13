@@ -5,49 +5,36 @@ signal merger_state_changed(is_active)
 
 export var drag_min_distance = 10
 
-onready var inventory: ItemList = $Menu/Inventory
+onready var inventory = $Menu/Inventory
 onready var merger = $Merger
 onready var level_drop_area = $LevelDropArea
 onready var level = get_node('..')  # Bad practice pero vamos apuradetes
 
-var _inventory = []
-var _possible_dragged_item_idx
+var _possible_dragged_item: Item
 var _possible_drag_start_pos
 
 
 func _ready():
 	DragDrop.connect("item_dropped", self, "_on_item_dropped")
-
+	connect("item_clicky", self, "_on_Inventory_item_clicky")
+	connect("item_double_clicky", self, "_on_Inventory_item_double_clicky")
 
 func _input(event):
 	if not (event.is_action_released("primary")
-	and _possible_dragged_item_idx != null
+	and _possible_dragged_item != null
 	and _possible_drag_start_pos != null):
 		return
 
 	var current_mouse_pos = level.get_global_mouse_position()
 	if current_mouse_pos.distance_to(_possible_drag_start_pos) > drag_min_distance:
-		var item = _inventory[_possible_dragged_item_idx]
-		DragDrop.drag(item)
-		remove_item_from_inventory(_possible_dragged_item_idx)
-	_possible_dragged_item_idx = null
+		DragDrop.drag(_possible_dragged_item)
+		inventory.remove_item(_possible_dragged_item)
+	_possible_dragged_item = null
 	_possible_drag_start_pos = null
-
-
-func add_item_to_inventory(item: Item):
-	_inventory.append(item)
-	inventory.add_item('', item.sprite.texture, true)
-	item.set_placement_inventory()
-
-
-func remove_item_from_inventory(item_idx):
-	_inventory.remove(item_idx)
-	inventory.remove_item(item_idx)
-
 
 func add_items_to_inventory(items: Array):
 	for item in items:
-		add_item_to_inventory(item)
+		inventory.add_item(item)
 
 
 func open_merger(with_item):
@@ -64,15 +51,17 @@ func _on_Merger_closed(items):
 
 func _on_item_dropped(item: Item, where, mouse_pos, mergeable_items):
 	if where == DropArea.Kind.INVENTORY:
-		add_item_to_inventory(item)
+		inventory.add_item(item)
 
 
-func _on_Inventory_item_click(idx):
-	_possible_dragged_item_idx = idx
+func _on_Inventory_item_clicky(item: Item):
+	print("clicky")
+	_possible_dragged_item = item
 	_possible_drag_start_pos = level.get_global_mouse_position()
 
 
-func _on_Inventory_item_double_click(idx):
-	var item = _inventory[idx]
-	remove_item_from_inventory(idx)
+func _on_Inventory_item_double_clicky(item: Item):
+	print("double_clicky")
+	inventory.remove_item(item)
 	open_merger(item)
+
