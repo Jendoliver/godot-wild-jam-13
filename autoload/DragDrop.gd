@@ -18,7 +18,10 @@ func _ready():
 
 func _process(delta):
 	global_position = get_global_mouse_position()
-	if Input.is_action_just_released("primary"):
+
+
+func _input(event):
+	if event.is_action_released("primary"):
 		try_drop()
 
 
@@ -26,11 +29,10 @@ func drag(item: Item):
 	item.set_placement_dragdrop()
 	_dragged = item
 	
-	_dragged_sprite = Sprite.new()
-	_dragged_sprite.texture = item.sprite.texture.duplicate()
+	_dragged_sprite = item.sprite.duplicate()
+	_dragged_sprite.show()
 	_dragged_sprite.modulate.a = 150
 	_dragged_sprite.z_index = 10
-	_dragged_sprite.show()
 	
 	var dragged_area = Area2D.new()
 	dragged_area.monitorable = false
@@ -46,7 +48,7 @@ func drag(item: Item):
 	detection_area.connect("area_exited", self, "_on_detection_overlap_end")
 
 	detection_area.monitoring = true
-	set_process(true)
+	set_process_input(true)
 	_can_drop = true
 
 
@@ -71,7 +73,7 @@ func drop(_where = null):
 
 func _deactivate():
 	detection_area.monitoring = false
-	set_process(false)
+	set_process_input(false)
 	clear_dragged_sprite()
 	_dragged = null
 	_dragged_sprite = null
