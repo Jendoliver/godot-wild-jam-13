@@ -32,6 +32,7 @@ fixed_icon_size = Vector2( 128, 128 )
 [node name="Merger" parent="." instance=ExtResource( 2 )]
 
 [node name="InventoryDropArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 719, 84 )
 script = ExtResource( 3 )
 kind = 2
@@ -42,6 +43,7 @@ shape = SubResource( 1 )
 
 [node name="LevelDropArea" type="Area2D" parent="."]
 editor/display_folded = true
+visible = false
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="LevelDropArea"]

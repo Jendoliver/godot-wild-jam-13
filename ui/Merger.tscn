@@ -25,6 +25,7 @@ margin_right = -16.0
 margin_bottom = 80.0
 
 [node name="DropArea" type="Area2D" parent="."]
+visible = false
 script = ExtResource( 2 )
 kind = 1
 
