@@ -8,3 +8,7 @@
 script = ExtResource( 2 )
 
 [node name="TestItemJhen" parent="Items" index="0" instance=ExtResource( 3 )]
+
+[node name="TestItemJhen2" parent="Items" index="1" instance=ExtResource( 3 )]
+
+[node name="TestItemJhen3" parent="Items" index="2" instance=ExtResource( 3 )]

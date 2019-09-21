@@ -13,7 +13,7 @@ var _blocking_items = []
 
 
 func _ready():
-	set_process(false)
+	_deactivate()
 
 
 func _process(delta):
@@ -30,6 +30,7 @@ func drag(item: Item):
 	_dragged_sprite.texture = item.sprite.texture.duplicate()
 	_dragged_sprite.modulate.a = 150
 	_dragged_sprite.z_index = 10
+	_dragged_sprite.show()
 	
 	var dragged_area = Area2D.new()
 	dragged_area.monitorable = false
@@ -46,6 +47,7 @@ func drag(item: Item):
 
 	detection_area.monitoring = true
 	set_process(true)
+	_can_drop = true
 
 
 func try_drop():
@@ -80,6 +82,9 @@ func _deactivate():
 
 
 func clear_dragged_sprite():
+	if not _dragged_sprite:
+		return
+
 	_dragged_sprite.get_child(0).get_child(0).queue_free()
 	_dragged_sprite.get_child(0).queue_free()
 	_dragged_sprite.queue_free()

@@ -1,14 +1,2 @@
 extends Level
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	DragDrop.drag(items.get_child(0))
-
-
-func _process(delta):
-	if Input.is_action_just_released("secondary"):
-		DragDrop.drag(items.get_child(0))

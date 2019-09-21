@@ -29,33 +29,41 @@ func is_active():
 	return drop_area.monitorable
 
 
-func add_item(item: Item):
-	if not is_active():
-		return open(item)
-	
-	_items.append(item)
-
-
 func open(item: Item):
+	if is_active():
+		_close()  # Close and reopen
+	
 	show()
 	set_process_input(true)
-	# Put item on center position, ready to MERG3
-	
-	item.set_placement_merger()
+	item.global_position = first_pos.global_position
 	drop_area.monitorable = true
+	_add_item(item)
 
 
-func close() -> Array:
+func _merge(item, with_items):
+	print("merge called with " + item + " and " + with_items)
+
+
+func _add_item(item: Item, at_pos = null):
+	if at_pos != null:
+		item.global_position = at_pos
+	
+	_items.append(item)
+	item.set_placement_merger()
+
+
+func _close():
 	hide()
 	set_process_input(false)
 	drop_area.monitorable = false
-	return _items
-
-
-func _on_Close_pressed():
-	emit_signal("closed", close())
+	var _returned_items = _items
+	_items.clear()
+	emit_signal("closed", _returned_items)
 
 
 func _on_item_dropped(item, where, mouse_pos, mergeable_items):
 	if where == DropArea.Kind.MERGER:
-		print("merger received item ", item, where, mouse_pos, mergeable_items)
+		if mergeable_items.empty():
+			_add_item(item, mouse_pos)
+		else:
+			_merge(item, mergeable_items)

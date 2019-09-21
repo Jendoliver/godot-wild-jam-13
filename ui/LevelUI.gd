@@ -3,15 +3,35 @@ extends CanvasLayer
 
 signal merger_state_changed(is_active)
 
+export var drag_min_distance = 10
+
 onready var inventory: ItemList = $Menu/Inventory
 onready var merger = $Merger
 onready var level_drop_area = $LevelDropArea
+onready var level = get_node('..')  # Bad practice pero vamos apuradetes
 
 var _inventory = []
+var _possible_dragged_item_idx
+var _possible_drag_start_pos
 
 
 func _ready():
 	DragDrop.connect("item_dropped", self, "_on_item_dropped")
+
+
+func _input(event):
+	if not (event.is_action_released("primary")
+	and _possible_dragged_item_idx != null
+	and _possible_drag_start_pos != null):
+		return
+
+	var current_mouse_pos = level.get_global_mouse_position()
+	if current_mouse_pos.distance_to(_possible_drag_start_pos) > drag_min_distance:
+		var item = _inventory[_possible_dragged_item_idx]
+		DragDrop.drag(item)
+		remove_item_from_inventory(_possible_dragged_item_idx)
+	_possible_dragged_item_idx = null
+	_possible_drag_start_pos = null
 
 
 func add_item_to_inventory(item: Item):
@@ -20,9 +40,9 @@ func add_item_to_inventory(item: Item):
 	item.set_placement_inventory()
 
 
-func remove_item_from_inventory(item: Item):
-	_inventory.erase(item)
-	inventory.remove_item(item.inventory_index)
+func remove_item_from_inventory(item_idx):
+	_inventory.remove(item_idx)
+	inventory.remove_item(item_idx)
 
 
 func add_items_to_inventory(items: Array):
@@ -48,12 +68,11 @@ func _on_item_dropped(item: Item, where, mouse_pos, mergeable_items):
 
 
 func _on_Inventory_item_click(idx):
-	print(idx)
-	# DETECT DRAG AND SEND TO DRAGDROP SOMEHOW
-	pass
+	_possible_dragged_item_idx = idx
+	_possible_drag_start_pos = level.get_global_mouse_position()
 
 
 func _on_Inventory_item_double_click(idx):
-	print(idx)
 	var item = _inventory[idx]
+	remove_item_from_inventory(idx)
 	open_merger(item)
