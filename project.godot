@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "DropArea",
 "language": "GDScript",
-"path": "res://item/DropArea.gd"
+"path": "res://ui/DropArea.gd"
 }, {
 "base": "Node2D",
 "class": "ExistenceTester",

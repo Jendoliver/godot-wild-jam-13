@@ -61,9 +61,9 @@ func drop(_where = null):
 	
 	var mouse_pos = get_global_mouse_position()
 	emit_signal("item_dropped", 
-		_dragged, _area_over, mouse_pos, _mergeable_items)
+		_dragged, _where, mouse_pos, _mergeable_items)
 	print("item_dropped", 
-		_dragged, _area_over, mouse_pos, _mergeable_items)
+		_dragged, _where, mouse_pos, _mergeable_items)
 	_deactivate()
 
 
