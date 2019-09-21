@@ -41,7 +41,7 @@ func open(item: Item):
 
 
 func _merge(item, with_items):
-	print("merge called with " + item + " and " + with_items)
+	print("merge called with " + item.name + " and " + str(with_items))
 
 
 func _add_item(item: Item, at_pos = null):

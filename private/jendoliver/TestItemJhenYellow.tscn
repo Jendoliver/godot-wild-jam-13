@@ -6,6 +6,7 @@
 [node name="TestItemJhen" index="0" instance=ExtResource( 1 )]
 input_pickable = true
 script = ExtResource( 2 )
+color = "yellow"
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 0.992157, 1, 0.180392, 1 )

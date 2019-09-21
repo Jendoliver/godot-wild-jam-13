@@ -25,6 +25,7 @@ margin_left = -321.0
 [node name="Merger" parent="." instance=ExtResource( 3 )]
 
 [node name="InventoryDropArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 719, 84 )
 script = ExtResource( 4 )
 kind = 2
@@ -35,7 +36,8 @@ shape = SubResource( 1 )
 
 [node name="LevelDropArea" type="Area2D" parent="."]
 editor/display_folded = true
-script = ExtResource( 4 )
+visible = false
+script = ExtResource(4)
 
 [node name="Collision" type="CollisionShape2D" parent="LevelDropArea"]
 position = Vector2( 352, 400 )

@@ -18,7 +18,10 @@ func _ready():
 
 func _process(delta):
 	global_position = get_global_mouse_position()
-	if Input.is_action_just_released("primary"):
+
+
+func _input(event):
+	if event.is_action_released("primary"):
 		try_drop()
 
 
@@ -26,11 +29,10 @@ func drag(item: Item):
 	item.set_placement_dragdrop()
 	_dragged = item
 	
-	_dragged_sprite = Sprite.new()
-	_dragged_sprite.texture = item.sprite.texture.duplicate()
+	_dragged_sprite = item.sprite.duplicate()
+	_dragged_sprite.show()
 	_dragged_sprite.modulate.a = 150
 	_dragged_sprite.z_index = 10
-	_dragged_sprite.show()
 	
 	var dragged_area = Area2D.new()
 	dragged_area.monitorable = false
@@ -46,7 +48,7 @@ func drag(item: Item):
 	detection_area.connect("area_exited", self, "_on_detection_overlap_end")
 
 	detection_area.monitoring = true
-	set_process(true)
+	set_process_input(true)
 	_can_drop = true
 
 
@@ -71,7 +73,7 @@ func drop(_where = null):
 
 func _deactivate():
 	detection_area.monitoring = false
-	set_process(false)
+	set_process_input(false)
 	clear_dragged_sprite()
 	_dragged = null
 	_dragged_sprite = null
@@ -108,14 +110,29 @@ func get_currently_dragged() -> Item:
 
 
 func add_blocking_item(item: Item):
+	print("blocking item added: ", item.name)
 	_blocking_items.append(item)
 	set_can_drop(false)
 
 
 func remove_blocking_item(item: Item):
+	print("blocking item removed: ", item.name)
 	_blocking_items.erase(item)
 	if _blocking_items.empty():
+		print("blocking items empty")
 		set_can_drop(true)
+
+
+func add_mergeable_item(item: Item):
+	print("mergeable item added: ", item.name)
+	_mergeable_items.append(item)
+	update_tween_modulate_with_mergeables()
+
+
+func remove_mergeable_item(item: Item):
+	print("mergeable item removed: ", item.name)
+	_mergeable_items.erase(item)
+	update_tween_modulate_with_mergeables()
 
 
 func update_tween_modulate_with_mergeables():
@@ -126,7 +143,7 @@ func update_tween_modulate_with_mergeables():
 
 
 func _on_dragged_overlap_start(obj: PhysicsBody2D):
-	print("_on_overlap_start", obj, obj.name)
+	print("_on_dragged_overlap_start", obj, obj.name)
 	
 	# Level geometry (not Items placed on level, but walls and shit)
 	if obj is StaticBody2D:
@@ -134,22 +151,20 @@ func _on_dragged_overlap_start(obj: PhysicsBody2D):
 	
 	elif obj is Item:
 		if obj.is_placed_at(Item.Placement.MERGER):
-			_mergeable_items.append(obj)
-			update_tween_modulate_with_mergeables()
+			add_mergeable_item(obj)
 		elif obj.is_placed_at(Item.Placement.LEVEL):
 			add_blocking_item(obj)
 
 
 func _on_dragged_overlap_end(obj: CollisionObject2D):
-	print("_on_overlap_end", obj, obj.name)
+	print("_on_dragged_overlap_end", obj, obj.name)
 	
 	if obj is StaticBody2D:
 		remove_blocking_item(obj)
 	
 	elif obj is Item:
 		if obj.is_placed_at(Item.Placement.MERGER):
-			_mergeable_items.erase(obj)
-			update_tween_modulate_with_mergeables()
+			remove_mergeable_item(obj)
 		elif obj.is_placed_at(Item.Placement.LEVEL):
 			remove_blocking_item(obj)
 

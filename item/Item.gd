@@ -3,6 +3,11 @@ extends RigidBody2D
 
 enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 
+# Keep on pair with Colors.gd
+export (String, \
+	"red", "green", "blue", "yellow", \
+	"magenta", "cyan", "white", "black") var color = "white"
+
 onready var sprite: Sprite = $Sprite
 onready var collision: CollisionPolygon2D = $Collision
 
@@ -11,9 +16,18 @@ var _placement setget _unsafely_set_placement
 
 func _ready():
 	hide()
+	set_color(Colors.palette[color])
 	sleeping = true
 	collision.disabled = true
 	_placement = Placement.UNDEFINED
+
+
+func get_color() -> Color:
+	return sprite.modulate
+
+
+func set_color(_color: Color):
+	sprite.modulate = _color
 
 
 func is_placed_at(placement):
@@ -41,7 +55,7 @@ func set_placement_merger():
 	show()
 	sleeping = true
 	gravity_scale = 0
-	collision.disabled = true
+	collision.disabled = false
 	_placement = Placement.MERGER
 
 
