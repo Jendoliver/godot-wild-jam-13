@@ -56,7 +56,7 @@ func _close():
 	hide()
 	set_process_input(false)
 	drop_area.monitorable = false
-	var _returned_items = _items
+	var _returned_items = _items.duplicate()
 	_items.clear()
 	emit_signal("closed", _returned_items)
 
