@@ -152,7 +152,7 @@ func _on_dragged_overlap_start(obj: PhysicsBody2D):
 	elif obj is Item:
 		if obj.is_placed_at(Item.Placement.MERGER):
 			add_mergeable_item(obj)
-		elif obj.is_placed_at(Item.Placement.LEVEL):
+		elif obj.is_placed_at(Item.Placement.LEVEL) and not obj.level.is_merger_open:
 			add_blocking_item(obj)
 
 
@@ -165,7 +165,7 @@ func _on_dragged_overlap_end(obj: CollisionObject2D):
 	elif obj is Item:
 		if obj.is_placed_at(Item.Placement.MERGER):
 			remove_mergeable_item(obj)
-		elif obj.is_placed_at(Item.Placement.LEVEL):
+		elif obj.is_placed_at(Item.Placement.LEVEL) and not obj.level.is_merger_open:
 			remove_blocking_item(obj)
 
 

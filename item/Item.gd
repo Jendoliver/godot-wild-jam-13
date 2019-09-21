@@ -8,6 +8,8 @@ export (preload("res://autoload/Colors.gd").Palette) var color
 onready var sprite: Sprite = $Sprite
 onready var collision: CollisionPolygon2D = $Collision
 
+var level
+
 var _placement setget _unsafely_set_placement
 
 
