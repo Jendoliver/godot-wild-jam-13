@@ -14,11 +14,12 @@ extents = Vector2( 32, 32 )
 script = ExtResource( 2 )
 
 [node name="WhiteItem" parent="Items" index="0" instance=ExtResource( 3 )]
-color = "red"
 
 [node name="RedItem" parent="Items" index="1" instance=ExtResource( 4 )]
+color = 0
 
 [node name="YellowItem" parent="Items" index="2" instance=ExtResource( 5 )]
+color = 3
 
 [node name="Floor" type="StaticBody2D" parent="." index="4"]
 position = Vector2( 352, 768 )

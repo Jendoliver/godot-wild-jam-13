@@ -1,16 +1,17 @@
 # http://learn.leighcotnoir.com/artspeak/elements-color/primary-colors/
 extends Node
 
-# Keep on pair with Item.gd
+enum Palette { RED, GREEN, BLUE, YELLOW, MAGENTA, CYAN, WHITE, BLACK }
+
 var palette = {
-	"red": Color(255, 0, 0),
-	"green": Color(0, 255, 0),
-	"blue": Color(0, 0, 255),
-	"yellow": Color(255, 255, 0),
-	"magenta": Color(255, 0, 255),
-	"cyan": Color(0, 255, 255),
-	"white": Color(255, 255, 255),
-	"black": Color(0, 0, 0)
+	Palette.RED: Color(255, 0, 0),
+	Palette.GREEN: Color(0, 255, 0),
+	Palette.BLUE: Color(0, 0, 255),
+	Palette.YELLOW: Color(255, 255, 0),
+	Palette.MAGENTA: Color(255, 0, 255),
+	Palette.CYAN: Color(0, 255, 255),
+	Palette.WHITE: Color(255, 255, 255),
+	Palette.BLACK: Color(0, 0, 0)
 }
 
 

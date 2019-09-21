@@ -3,10 +3,7 @@ extends RigidBody2D
 
 enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 
-# Keep on pair with Colors.gd
-export (String, \
-	"red", "green", "blue", "yellow", \
-	"magenta", "cyan", "white", "black") var color = "white"
+export (preload("res://autoload/Colors.gd").Palette) var color
 
 onready var sprite: Sprite = $Sprite
 onready var collision: CollisionPolygon2D = $Collision
