@@ -3,9 +3,8 @@ extends RigidBody2D
 
 enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 
-export (preload("res://autoload/Colors.gd").Palette) var _color
-
-onready var sprite: Sprite = $Sprite
+const ColorsPre = preload("res://autoload/Colors.gd")
+export (ColorsPre.Palette) var _color = ColorsPre.Palette.WHITE
 
 var color: Color
 var level
@@ -18,12 +17,9 @@ func _ready():
 	init(Colors.palette[_color], false, true, true, Placement.UNDEFINED)
 
 
-func init(_color, is_visible, is_sleeping, collision_disabled, placement, tween_color = false):
+func init(_color, is_visible, is_sleeping, collision_disabled, placement, with_tween = false, use_tween = null):
 	visible = is_visible
-	if tween_color:
-		set_color(_color, tween_color)
-	else:
-		color = _color
+	set_color(_color, with_tween, use_tween)
 	_initial_color = _color
 	sleeping = is_sleeping
 	set_collisions_disabled(collision_disabled)
@@ -33,7 +29,7 @@ func init(_color, is_visible, is_sleeping, collision_disabled, placement, tween_
 func merge(items: Array, inplace = false):
 	var _new_item = self
 	if not inplace:
-		_new_item = load("res://item/Item.tscn").instance()
+		_new_item = load("res://item/Item.gd").new()
 	
 	var _items = items.duplicate()
 	_items.append(self)
@@ -43,9 +39,13 @@ func merge(items: Array, inplace = false):
 	return _new_item
 
 
-func set_color(new_color: Color, tween: Tween = null):
+func set_color(new_color: Color, with_tween = false, use_tween: Tween = null):
 	color = new_color
-	Colors.tween_sprite(sprite, sprite.modulate, new_color, tween)
+	var sprites = get_sprites()
+	if with_tween:
+		Colors.tween_sprites(sprites, sprites[0].self_modulate, new_color, use_tween)
+	else:
+		set_sprites_modulate(new_color)
 
 
 func restore_initial_color():
@@ -57,7 +57,6 @@ func is_placed_at(placement):
 
 
 func set_placement_inventory():
-	#hide()
 	show()
 	sleeping = true
 	gravity_scale = 0
@@ -87,6 +86,19 @@ func set_placement_dragdrop():
 	gravity_scale = 0
 	set_collisions_disabled(true)
 	_placement = Placement.DRAGDROP
+
+
+func get_sprites():
+	var sprites = []
+	for child in get_children():
+		if child is Sprite:
+			sprites.append(child)
+	return sprites
+
+
+func set_sprites_modulate(_modulate: Color):
+	for sprite in get_sprites():
+		sprite.self_modulate = _modulate
 
 
 func get_collisions():

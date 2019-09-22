@@ -5,7 +5,7 @@ signal item_dropped(item, where, mouse_pos, mergeable_items)
 onready var detection_area: Area2D = $DetectionArea
 
 var _dragged: Item
-var _dragged_sprite: Sprite
+var _dragged_sprites: Array
 var _dragged_initial_color: Color  # TODO quitar cuando se mueva el item
 var _area_over  # type DropArea.Kind
 var _can_drop = false setget set_can_drop
@@ -30,13 +30,15 @@ func drag(item: Item):
 	item.set_placement_dragdrop()
 	_dragged = item
 	
-	_dragged_sprite = item.sprite.duplicate()
-	add_child(_dragged_sprite)
-	_dragged_sprite.show()
-	_dragged_initial_color = _dragged_sprite.modulate  # TODO quitar cuando se mueva el item
-
 	var dragged_area = Area2D.new()
-	_dragged_sprite.add_child(dragged_area)
+	add_child(dragged_area)
+	for sprite in item.get_sprites():
+		var copy = sprite.duplicate()
+		_dragged_sprites.append(copy)
+		dragged_area.add_child(copy)
+		copy.show()
+	_dragged_initial_color = _dragged_sprites[0].modulate  # TODO quitar cuando se mueva el item
+
 	dragged_area.monitorable = false
 	for collision in item.get_collisions():
 		var copy = collision.duplicate()
@@ -78,7 +80,7 @@ func _deactivate():
 	set_process_input(false)
 	clear_dragged_sprite()
 	_dragged = null
-	_dragged_sprite = null
+	_dragged_sprites = []
 	_area_over = null
 	_can_drop = false
 	_mergeable_items.clear()
@@ -86,10 +88,12 @@ func _deactivate():
 
 
 func clear_dragged_sprite():
-	if not _dragged_sprite:
+	if not _dragged_sprites:
 		return
-
-	_dragged_sprite.queue_free()
+	
+	for sprite in _dragged_sprites:
+		sprite.queue_free()
+	_dragged_sprites.clear()
 
 
 func set_can_drop(can_drop):
@@ -148,9 +152,9 @@ func tween_mergeables(removed_item = null):
 		if merged_color:
 			dragged_next_color = merged_color
 			for item in _mergeable_items:
-				item.set_color(dragged_next_color)
+				item.set_color(dragged_next_color, true)
 
-	Colors.tween_sprite(_dragged_sprite, _dragged_sprite.modulate, dragged_next_color)
+	Colors.tween_sprites(_dragged_sprites, _dragged_sprites[0].self_modulate, dragged_next_color)
 
 
 func _on_dragged_overlap_start(obj: PhysicsBody2D):

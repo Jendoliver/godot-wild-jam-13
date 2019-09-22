@@ -55,7 +55,15 @@ func tween_sprite(sprite: Sprite,
 			tween.connect("tween_completed", tween, "queue_free")
 
 		tween.interpolate_property(
-			sprite, 'modulate', 
+			sprite, 'self_modulate', 
 			from, to, duration, 
 			transition, duration, easing)
 		tween.start()
+
+
+func tween_sprites(sprites: Array, 
+	from: Color, to: Color, tween = null, 
+	duration = 3.0, transition = Tween.TRANS_ELASTIC,
+	easing = Tween.EASE_IN):
+		for sprite in sprites:
+			tween_sprite(sprite, from, to, tween, duration, transition, easing)
