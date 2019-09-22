@@ -2,7 +2,7 @@ class_name Merger
 extends Panel
 
 signal closed(items)
-signal merged(new_item)
+signal merged(new_item, at_pos)
 
 onready var drop_area: DropArea = $DropArea
 onready var first_pos: Position2D = $FirstPos
@@ -40,12 +40,13 @@ func open(item: Item):
 
 
 func _merge(item, with_items, new_item_pos):
+	var new_item = item.merge(with_items, new_item_pos)
 	for old_item in with_items:
-		old_item.queue_free()
 		_items.erase(old_item)
-	var new_item = item.merge(with_items)
+		old_item.queue_free()
+	item.queue_free()
 	_add_item(new_item, new_item_pos)
-	emit_signal("merged", new_item)
+	emit_signal("merged", new_item, new_item_pos)
 	print("merge called with " + item.name + " and " + str(with_items))
 
 

@@ -26,16 +26,32 @@ func init(_color, is_visible, is_sleeping, collision_disabled, placement, with_t
 	_placement = placement
 
 
-func merge(items: Array, inplace = false):
-	var _new_item = self
-	if not inplace:
-		_new_item = load("res://item/Item.gd").new()
+func merge(items: Array, at_pos = null):
+	var _new_item = duplicate()
+	if at_pos == null:
+		at_pos = self.global_position
 	
-	var _items = items.duplicate()
-	_items.append(self)
+	_new_item.global_position = at_pos
+	var _items = items.duplicate(true)
 	var new_color = Colors.merge_items(_items)
+	
+	print(_new_item.repr())
+	
+	for item in _items:
+		for sprite in item.get_sprites():
+			var new_sprite = sprite.duplicate()
+			_new_item.add_child(new_sprite)
+			new_sprite.global_position = sprite.global_position
+			print("sprite global: ", sprite.global_position)
+		for collision in item.get_collisions():
+			var new_collision = collision.duplicate()
+			_new_item.add_child(new_collision)
+			new_collision.global_position = collision.global_position
+			print("collision global: ", collision.global_position)
+	
 	_new_item.init(new_color, true, true, false, Placement.MERGER)
 	
+	print(_new_item.repr())
 	return _new_item
 
 
@@ -113,6 +129,26 @@ func set_collisions_disabled(_disabled):
 	for child in get_children():
 		if child is CollisionPolygon2D or child is CollisionShape2D:
 			child.disabled = _disabled
+
+
+func repr():
+	var output = """
+		%s (Ptr: %s) repr:
+		------------------
+		Position: %s  (Global: %s )
+		Modulate: %s   (Self: %s)
+		Children:\n""".dedent() % [name, self, position, 
+		global_position, modulate, self_modulate]
+	for child in get_children():
+		output += ("""
+		- Name: %s  (Ptr: %s)
+		- Position: %s  (Global: %s )
+		- Modulate: %s  (Self: %s)
+		""" % [child.name, child, child.position, 
+		child.global_position, child.modulate, 
+		child.self_modulate]).dedent()
+	output += "---------------\n%s repr END\n" % name
+	return output
 
 
 func _unsafely_set_placement(new_placement):
