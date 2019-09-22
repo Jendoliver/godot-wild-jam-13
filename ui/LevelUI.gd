@@ -5,7 +5,7 @@ signal merger_state_changed(is_active)
 
 export (int) var min_drag_distance = 10
 
-onready var inventory = $Menu/Inventory
+onready var inventory = $Menu/Panel/Inventory/Grid
 onready var merger = $Merger
 onready var level_drop_area = $LevelDropArea
 onready var level = get_node('..')  # Bad practice pero vamos apuradetes

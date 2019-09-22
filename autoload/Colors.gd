@@ -1,4 +1,5 @@
 # http://learn.leighcotnoir.com/artspeak/elements-color/primary-colors/
+class_name Colors
 extends Node
 
 # Keep on pair with Item.gd

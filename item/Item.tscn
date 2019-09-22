@@ -15,5 +15,6 @@ script = ExtResource( 1 )
 position = Vector2( 9.53674e-007, -9.53674e-007 )
 scale = Vector2( 0.03125, 64 )
 texture = SubResource( 2 )
+centered = false
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]

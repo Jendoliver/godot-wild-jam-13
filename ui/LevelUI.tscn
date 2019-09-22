@@ -20,11 +20,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -321.0
 
-[node name="Inventory" parent="Menu" instance=ExtResource( 2 )]
+[node name="Panel" type="Panel" parent="Menu"]
+modulate = Color( 0.470588, 1, 0.0313726, 1 )
+margin_left = 9.0
+margin_top = 79.0
+margin_right = 297.0
+margin_bottom = 779.0
+
+[node name="Inventory" parent="Menu/Panel" instance=ExtResource( 2 )]
 
 [node name="Merger" parent="." instance=ExtResource( 3 )]
 
 [node name="InventoryDropArea" type="Area2D" parent="."]
+editor/display_folded = true
 visible = false
 position = Vector2( 719, 84 )
 script = ExtResource( 4 )
@@ -37,11 +45,9 @@ shape = SubResource( 1 )
 [node name="LevelDropArea" type="Area2D" parent="."]
 editor/display_folded = true
 visible = false
-script = ExtResource(4)
+script = ExtResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="LevelDropArea"]
 position = Vector2( 352, 400 )
 shape = SubResource( 2 )
-[connection signal="item_clicky" from="Menu/Inventory" to="." method="_on_Inventory_item_clicky"]
-[connection signal="item_double_clicky" from="Menu/Inventory" to="." method="_on_Inventory_item_double_clicky"]
 [connection signal="closed" from="Merger" to="." method="_on_Merger_closed"]
