@@ -3,7 +3,8 @@ extends RigidBody2D
 
 enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 
-export (preload("res://autoload/Colors.gd").Palette) var _color
+const ColorsPre = preload("res://autoload/Colors.gd")
+export (ColorsPre.Palette) var _color = ColorsPre.Palette.WHITE
 
 onready var sprite: Sprite = $Sprite
 
@@ -18,12 +19,9 @@ func _ready():
 	init(Colors.palette[_color], false, true, true, Placement.UNDEFINED)
 
 
-func init(_color, is_visible, is_sleeping, collision_disabled, placement, tween_color = false):
+func init(_color, is_visible, is_sleeping, collision_disabled, placement, with_tween = false, use_tween = null):
 	visible = is_visible
-	if tween_color:
-		set_color(_color, tween_color)
-	else:
-		color = _color
+	set_color(_color, with_tween, use_tween)
 	_initial_color = _color
 	sleeping = is_sleeping
 	set_collisions_disabled(collision_disabled)
@@ -43,9 +41,12 @@ func merge(items: Array, inplace = false):
 	return _new_item
 
 
-func set_color(new_color: Color, tween: Tween = null):
+func set_color(new_color: Color, with_tween = false, use_tween: Tween = null):
 	color = new_color
-	Colors.tween_sprite(sprite, sprite.modulate, new_color, tween)
+	if with_tween:
+		Colors.tween_sprite(sprite, sprite.self_modulate, new_color, use_tween)
+	else:
+		sprite.self_modulate = new_color
 
 
 func restore_initial_color():

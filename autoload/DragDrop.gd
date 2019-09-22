@@ -148,9 +148,9 @@ func tween_mergeables(removed_item = null):
 		if merged_color:
 			dragged_next_color = merged_color
 			for item in _mergeable_items:
-				item.set_color(dragged_next_color)
+				item.set_color(dragged_next_color, true)
 
-	Colors.tween_sprite(_dragged_sprite, _dragged_sprite.modulate, dragged_next_color)
+	Colors.tween_sprite(_dragged_sprite, _dragged_sprite.self_modulate, dragged_next_color)
 
 
 func _on_dragged_overlap_start(obj: PhysicsBody2D):

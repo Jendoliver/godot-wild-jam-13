@@ -55,7 +55,7 @@ func tween_sprite(sprite: Sprite,
 			tween.connect("tween_completed", tween, "queue_free")
 
 		tween.interpolate_property(
-			sprite, 'modulate', 
+			sprite, 'self_modulate', 
 			from, to, duration, 
 			transition, duration, easing)
 		tween.start()
