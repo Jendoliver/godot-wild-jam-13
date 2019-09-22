@@ -6,7 +6,6 @@ enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 export (preload("res://autoload/Colors.gd").Palette) var _color
 
 onready var sprite: Sprite = $Sprite
-onready var collision: CollisionPolygon2D = $Collision
 
 var color: Color
 var level
@@ -22,13 +21,13 @@ func _ready():
 func init(_color, is_visible, is_sleeping, collision_disabled, placement, tween_color = false):
 	visible = is_visible
 	if tween_color:
-		set_color(_color)
+		set_color(_color, tween_color)
 	else:
 		color = _color
 	_initial_color = _color
-	sleeping = true
-	set_collisions_disabled(true)
-	_placement = Placement.UNDEFINED
+	sleeping = is_sleeping
+	set_collisions_disabled(collision_disabled)
+	_placement = placement
 
 
 func merge(items: Array, inplace = false):
