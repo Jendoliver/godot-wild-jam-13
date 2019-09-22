@@ -9,7 +9,10 @@ onready var level_ui: LevelUI = $LevelUI
 var is_merger_open = false setget set_merger_open
 
 func _ready():
-	level_ui.add_items_to_inventory(items.get_children())
+	for item in items.get_children():
+		level_ui.add_item_to_inventory(item)
+		item.level = self
+	
 	level_ui.connect("merger_state_changed", self, "set_merger_open")
 	DragDrop.connect("item_dropped", self, "_on_item_dropped")
 

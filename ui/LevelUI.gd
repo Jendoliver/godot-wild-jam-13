@@ -2,6 +2,7 @@ class_name LevelUI
 extends CanvasLayer
 
 signal merger_state_changed(is_active)
+signal item_merged(item)
 
 export (int) var min_drag_distance = 10
 
@@ -72,3 +73,7 @@ func _on_Inventory_item_double_clicky(item: Item):
 	inventory.remove_item(item)
 	open_merger(item)
 
+
+
+func _on_Merger_merged(new_item):
+	emit_signal("item_merged", new_item)

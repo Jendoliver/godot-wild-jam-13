@@ -6,6 +6,7 @@
 radius = 0.73915
 
 [node name="DragDrop" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="DetectionArea" type="Area2D" parent="."]

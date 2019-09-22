@@ -14,7 +14,7 @@ extents = Vector2( 32, 32 )
 script = ExtResource( 2 )
 
 [node name="WhiteItem" parent="Items" index="0" instance=ExtResource( 3 )]
-color = "red"
+_color = 6
 
 [node name="RedItem" parent="Items" index="1" instance=ExtResource( 4 )]
 
@@ -35,3 +35,4 @@ shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+[connection signal="item_merged" from="LevelUI" to="." method="_on_LevelUI_item_merged"]
