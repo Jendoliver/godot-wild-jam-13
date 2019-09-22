@@ -4,8 +4,6 @@ extends Panel
 signal closed(items)
 signal merged(new_item)
 
-export (bool) var close_on_click = false
-
 onready var drop_area: DropArea = $DropArea
 onready var first_pos: Position2D = $FirstPos
 
