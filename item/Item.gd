@@ -6,8 +6,6 @@ enum Placement { UNDEFINED, INVENTORY, LEVEL, MERGER, DRAGDROP }
 const ColorsPre = preload("res://autoload/Colors.gd")
 export (ColorsPre.Palette) var _color = ColorsPre.Palette.WHITE
 
-onready var sprite: Sprite = $Sprite
-
 var color: Color
 var level
 
@@ -31,7 +29,7 @@ func init(_color, is_visible, is_sleeping, collision_disabled, placement, with_t
 func merge(items: Array, inplace = false):
 	var _new_item = self
 	if not inplace:
-		_new_item = load("res://item/Item.tscn").instance()
+		_new_item = load("res://item/Item.gd").new()
 	
 	var _items = items.duplicate()
 	_items.append(self)
@@ -43,10 +41,11 @@ func merge(items: Array, inplace = false):
 
 func set_color(new_color: Color, with_tween = false, use_tween: Tween = null):
 	color = new_color
+	var sprites = get_sprites()
 	if with_tween:
-		Colors.tween_sprite(sprite, sprite.self_modulate, new_color, use_tween)
+		Colors.tween_sprites(sprites, sprites[0].self_modulate, new_color, use_tween)
 	else:
-		sprite.self_modulate = new_color
+		set_sprites_modulate(new_color)
 
 
 func restore_initial_color():
@@ -87,6 +86,19 @@ func set_placement_dragdrop():
 	gravity_scale = 0
 	set_collisions_disabled(true)
 	_placement = Placement.DRAGDROP
+
+
+func get_sprites():
+	var sprites = []
+	for child in get_children():
+		if child is Sprite:
+			sprites.append(child)
+	return sprites
+
+
+func set_sprites_modulate(_modulate: Color):
+	for sprite in get_sprites():
+		sprite.self_modulate = _modulate
 
 
 func get_collisions():

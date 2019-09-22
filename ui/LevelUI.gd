@@ -44,7 +44,9 @@ func _input(event):
 
 func add_item_to_inventory(item: Item):
 	_inventory.append(item)
-	inventory.add_item('', item.sprite.texture, true)
+	var sprite = item.get_sprites()[0].duplicate()  # TODO cambiar con nuevo Inventory
+	sprite.show()
+	inventory.add_icon_item(sprite.texture, true)  # TODO Cambiar con nuevo Inventory
 	item.set_placement_inventory()
 
 
