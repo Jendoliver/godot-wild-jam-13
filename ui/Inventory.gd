@@ -35,7 +35,7 @@ func _gui_input(event):
 func add_item(item: Item):
 	item.get_node("..").remove_child(item)
 	var control = Control.new()
-	control.set_h_size_flags(SIZE_EXPAND) #Item expands to fill al available space
+	control.set_h_size_flags(SIZE_EXPAND) #Item expands to fill all available space
 	# SIZE_SHRINK_CENTER Item centered
 	control.add_child(item)
 	add_child(control)
