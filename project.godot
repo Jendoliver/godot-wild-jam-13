@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Colors",
-"language": "GDScript",
-"path": "res://autoload/Colors.gd"
-}, {
 "base": "Area2D",
 "class": "DropArea",
 "language": "GDScript",
@@ -50,7 +45,6 @@ _global_script_classes=[ {
 "path": "res://ui/Merger.gd"
 } ]
 _global_script_class_icons={
-"Colors": "",
 "DropArea": "",
 "ExistenceTester": "",
 "Inventory": "",

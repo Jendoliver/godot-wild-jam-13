@@ -49,5 +49,3 @@ script = ExtResource( 4 )
 [node name="Collision" type="CollisionShape2D" parent="LevelDropArea"]
 position = Vector2( 352, 400 )
 shape = SubResource( 2 )
-[connection signal="closed" from="Merger" to="." method="_on_Merger_closed"]
-[connection signal="merged" from="Merger" to="." method="_on_Merger_merged"]

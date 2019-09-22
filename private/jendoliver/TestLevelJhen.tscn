@@ -14,7 +14,6 @@ extents = Vector2( 32, 32 )
 script = ExtResource( 2 )
 
 [node name="WhiteItem" parent="Items" index="0" instance=ExtResource( 3 )]
-_color = 6
 
 [node name="RedItem" parent="Items" index="1" instance=ExtResource( 4 )]
 

@@ -21,7 +21,12 @@ func _gui_input(event):
 			for item in items:
 				var item_relative_mouse_pos = item.get_local_mouse_position()
 				#unreliable if we merge two sprites
-				var is_clicked = item_relative_mouse_pos.x >= 0 && item_relative_mouse_pos.x <= item.get_child(0).texture.get_width() && item_relative_mouse_pos.y >= 0 && item_relative_mouse_pos.y <= item.get_child(0).texture.get_height()
+				var is_clicked = (
+					item_relative_mouse_pos.x >= 0 
+					&& item_relative_mouse_pos.x <= item.get_child(0).texture.get_width() 
+					&& item_relative_mouse_pos.y >= 0 
+					&& item_relative_mouse_pos.y <= item.get_child(0).texture.get_height()
+				)
 				if is_clicked && not is_double_clicky_posible:
 					is_double_clicky_posible = true
 					timer.start()
@@ -31,6 +36,7 @@ func _gui_input(event):
 					_disable_doubleclick()
 					emit_signal("item_double_clicky",item)
 					break
+
 
 func add_item(item: Item):
 	item.get_node("..").remove_child(item)
@@ -43,14 +49,17 @@ func add_item(item: Item):
 	item.set_placement_inventory()
 	print(item.is_visible_in_tree())
 
+
 func remove_item(item: Item):
 	remove_child(item)
 	var index = items.find(item)
 	items.remove(index)
 	item.set_placement_dragdrop()
 
+
 func _disable_doubleclick():
 	is_double_clicky_posible = false
+
 
 func _on_Timer_timeout():
 	_disable_doubleclick()
