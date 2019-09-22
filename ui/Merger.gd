@@ -2,6 +2,7 @@ class_name Merger
 extends Panel
 
 signal closed(items)
+signal merged(new_item)
 
 export (bool) var close_on_click = false
 
@@ -40,7 +41,13 @@ func open(item: Item):
 	_add_item(item)
 
 
-func _merge(item, with_items):
+func _merge(item, with_items, new_item_pos):
+	for old_item in with_items:
+		old_item.queue_free()
+		_items.erase(old_item)
+	var new_item = item.merge(with_items)
+	_add_item(new_item, new_item_pos)
+	emit_signal("merged", new_item)
 	print("merge called with " + item.name + " and " + str(with_items))
 
 
@@ -66,4 +73,4 @@ func _on_item_dropped(item, where, mouse_pos, mergeable_items):
 		if mergeable_items.empty():
 			_add_item(item, mouse_pos)
 		else:
-			_merge(item, mergeable_items)
+			_merge(item, mergeable_items, mouse_pos)

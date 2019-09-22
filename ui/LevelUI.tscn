@@ -42,7 +42,6 @@ position = Vector2( 161, 348 )
 shape = SubResource( 1 )
 
 [node name="LevelDropArea" type="Area2D" parent="."]
-editor/display_folded = true
 visible = false
 script = ExtResource( 3 )
 
@@ -52,3 +51,4 @@ shape = SubResource( 2 )
 [connection signal="item_activated" from="Menu/Inventory" to="." method="_on_Inventory_item_double_click"]
 [connection signal="item_selected" from="Menu/Inventory" to="." method="_on_Inventory_item_click"]
 [connection signal="closed" from="Merger" to="." method="_on_Merger_closed"]
+[connection signal="merged" from="Merger" to="." method="_on_Merger_merged"]
