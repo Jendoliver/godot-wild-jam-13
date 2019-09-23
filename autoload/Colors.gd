@@ -29,7 +29,7 @@ func merge(colors: Array) -> Color:
 func merge_items(items: Array) -> Color:
 	var colors = []
 	for item in items:
-		colors.append(item.color)
+		colors.append(item.initial_color)
 	return merge(colors)
 
 
@@ -43,27 +43,32 @@ func is_valid(color: Color) -> bool:
 	return false
 
 
-func tween_sprite(sprite: Sprite, 
+func tween_modulate(item: CanvasItem, 
 	from: Color, to: Color, tween = null, 
-	duration = 3.0, transition = Tween.TRANS_ELASTIC,
+	duration = 0.5, transition = Tween.TRANS_CUBIC,
 	easing = Tween.EASE_IN):
 
 		if tween == null:
 			tween = Tween.new()
-			var root = get_node('/root')
-			root.add_child(tween)
+			add_child(tween)
 			tween.connect("tween_completed", tween, "queue_free")
 
 		tween.interpolate_property(
-			sprite, 'self_modulate', 
+			item, 'self_modulate', 
 			from, to, duration, 
 			transition, duration, easing)
 		tween.start()
 
 
-func tween_sprites(sprites: Array, 
+func tween_modulates(items: Array, 
 	from: Color, to: Color, tween = null, 
-	duration = 3.0, transition = Tween.TRANS_ELASTIC,
+	duration = 0.5, transition = Tween.TRANS_CUBIC,
 	easing = Tween.EASE_IN):
-		for sprite in sprites:
-			tween_sprite(sprite, from, to, tween, duration, transition, easing)
+		for item in items:
+			tween_modulate(item, from, to, tween, duration, transition, easing)
+
+
+func stop_all_tweens():
+	for child in get_children():
+		if child is Tween:
+			child.stop_all()

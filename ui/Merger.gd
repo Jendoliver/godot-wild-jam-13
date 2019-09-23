@@ -41,6 +41,7 @@ func open(item: Item):
 
 func _merge(item, with_items, new_item_pos):
 	var new_item = item.merge(with_items, new_item_pos)
+	Colors.stop_all_tweens()
 	for old_item in with_items:
 		_items.erase(old_item)
 		old_item.queue_free()

@@ -8,4 +8,5 @@ input_pickable = true
 script = ExtResource( 2 )
 
 [node name="Collision" parent="." index="1"]
+visible = false
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
