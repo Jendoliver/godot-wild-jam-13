@@ -14,20 +14,20 @@ script = ExtResource( 2 )
 [node name="RedItem" parent="Items" index="0" instance=ExtResource( 3 )]
 _color = 0
 
-[node name="GreenItem" parent="Items" index="1" instance=ExtResource( 3 )]
+[node name="RedItem2" parent="Items" index="1" instance=ExtResource( 3 )]
+_color = 0
+
+[node name="GreenItem" parent="Items" index="2" instance=ExtResource( 3 )]
 _color = 1
 
-[node name="BlueItem" parent="Items" index="2" instance=ExtResource( 3 )]
+[node name="GreenItem2" parent="Items" index="3" instance=ExtResource( 3 )]
+_color = 1
+
+[node name="BlueItem" parent="Items" index="4" instance=ExtResource( 3 )]
 _color = 2
 
-[node name="YellowItem" parent="Items" index="3" instance=ExtResource( 3 )]
-_color = 3
-
-[node name="MagentaItem" parent="Items" index="4" instance=ExtResource( 3 )]
-_color = 4
-
-[node name="CyanItem" parent="Items" index="5" instance=ExtResource( 3 )]
-_color = 5
+[node name="BlueItem2" parent="Items" index="5" instance=ExtResource( 3 )]
+_color = 2
 
 [node name="Floor" type="StaticBody2D" parent="." index="4"]
 position = Vector2( 352, 768 )

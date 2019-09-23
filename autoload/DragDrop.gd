@@ -5,6 +5,7 @@ signal item_dropped(item, where, mouse_pos, mergeable_items)
 onready var detection_area: Area2D = $DetectionArea
 
 var _dragged: Item
+var _dragged_area: Area2D
 var _dragged_sprites: Array
 var _dragged_initial_color: Color  # TODO quitar cuando se mueva el item
 var _area_over  # type DropArea.Kind
@@ -30,24 +31,24 @@ func drag(item: Item):
 	item.set_placement_dragdrop()
 	_dragged = item
 	
-	var dragged_area = Area2D.new()
-	add_child(dragged_area)
+	_dragged_area = Area2D.new()
+	add_child(_dragged_area)
 	for sprite in item.get_sprites():
 		var copy = sprite.duplicate()
 		_dragged_sprites.append(copy)
-		dragged_area.add_child(copy)
+		_dragged_area.add_child(copy)
 		copy.show()
-	_dragged_initial_color = _dragged_sprites[0].modulate  # TODO quitar cuando se mueva el item
+	_dragged_initial_color = _dragged.initial_color # TODO quitar cuando se mueva el item
 
-	dragged_area.monitorable = false
+	_dragged_area.monitorable = false
 	for collision in item.get_collisions():
 		var copy = collision.duplicate()
-		dragged_area.add_child(copy)
+		_dragged_area.add_child(copy)
 		copy.polygon = PoolVector2Array(collision.polygon)
 		copy.disabled = false
 
-	dragged_area.connect("body_entered", self, "_on_dragged_overlap_start")
-	dragged_area.connect("body_exited", self, "_on_dragged_overlap_end")
+	_dragged_area.connect("body_entered", self, "_on_dragged_overlap_start")
+	_dragged_area.connect("body_exited", self, "_on_dragged_overlap_end")
 	detection_area.connect("area_entered", self, "_on_detection_overlap_start")
 	detection_area.connect("area_exited", self, "_on_detection_overlap_end")
 
@@ -78,21 +79,19 @@ func drop(_where = null):
 func _deactivate():
 	detection_area.monitoring = false
 	set_process_input(false)
-	clear_dragged_sprite()
+	clear_dragged_area()
 	_dragged = null
-	_dragged_sprites = []
 	_area_over = null
 	_can_drop = false
 	_mergeable_items.clear()
 	_blocking_items.clear()
 
 
-func clear_dragged_sprite():
-	if not _dragged_sprites:
+func clear_dragged_area():
+	if not _dragged_area:
 		return
-	
-	for sprite in _dragged_sprites:
-		sprite.queue_free()
+
+	_dragged_area.queue_free()
 	_dragged_sprites.clear()
 
 
@@ -141,7 +140,7 @@ func remove_mergeable_item(item: Item):
 
 func tween_mergeables(removed_item = null):
 	if removed_item != null:
-		removed_item.restore_initial_color()
+		removed_item.restore_initial_color(true)
 	
 	var dragged_next_color = _dragged_initial_color
 	if not _mergeable_items.empty():
@@ -154,7 +153,7 @@ func tween_mergeables(removed_item = null):
 			for item in _mergeable_items:
 				item.set_color(dragged_next_color, true)
 
-	Colors.tween_sprites(_dragged_sprites, _dragged_sprites[0].self_modulate, dragged_next_color)
+	Colors.tween_modulates(_dragged_sprites, _dragged_sprites[0].self_modulate, dragged_next_color)
 
 
 func _on_dragged_overlap_start(obj: PhysicsBody2D):
